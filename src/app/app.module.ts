@@ -6,11 +6,13 @@ import { ChatComponent } from './chat/chat.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
