@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, SnapshotAction } from '@angular/fire/database';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Comment } from './class/comment';
@@ -26,11 +26,11 @@ export class AppComponent {
     this.item$ = db.object('/item').valueChanges();
     this.commentsRef = db.list('/comments');
     this.comments$ = this.commentsRef.snapshotChanges()
-      pipe(
+      .pipe(
         map((snapshots: SnapshotAction<Comment>[]) => {
           return snapshots.map(snapshot => {
             const value = snapshot.payload.val();
-            return new Comment({ key: snapshot.payload.key, ...value});
+            return new Comment({ key: snapshot.payload.key, ...value });
           });
         })
       );
@@ -38,7 +38,7 @@ export class AppComponent {
 
   addComment(comment: string): void {
     if (comment) {
-      this.commentsRef.push(new Comment({ user: this.currentUser, message: comment}));
+      this.commentsRef.push(new Comment({ user: this.currentUser, message: comment }));
       this.comment = '';
     }
   }
