@@ -19,11 +19,12 @@ export class UsersService {
       .then((credential) => {
         const { user } = credential;
         const actionCodeSettings = {
-          url: `http://localhost:4200/?newAccount=true&email=${user?.email}`
-        }
-        user?.sendEmailVerification(actionCodeSettings);
+          url: `http://localhost:4200/?newAccount=true&email=${user!.email}`
+        };
 
-        this.db.object(`/users/${user?.uid}`).set(new User(user!));
+        user!.sendEmailVerification(actionCodeSettings);
+
+        this.db.object(`/users/${user!.uid}`).set({ uid: user!.uid, email: user!.email });
       });
   }
 
@@ -34,6 +35,6 @@ export class UsersService {
           .then(() => this.db.object(`/users/${user.uid}`).update(values))
           .catch(error => console.error(error));
       }
-    })
+    });
   }
 }
