@@ -5,11 +5,11 @@ export class User {
   uid: string | null;
   initial: string | undefined;
 
-  constructor(user: firebase.User){
-    this.uid = user.uid;
-    this.displayName = user.displayName;
-    this.email = user.email;
-    this.photoURL = user.photoURL;
-    this.initial = user.displayName?.slice(0,1);
+  constructor(user: User | firebase.User | null){
+    this.uid = user!.uid;
+    this.displayName = user!.displayName;
+    this.email = user!.email;
+    this.photoURL = user!.photoURL;
+    this.initial = user!.displayName?.slice(0,1);
   }
 }
